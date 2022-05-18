@@ -93,14 +93,14 @@ ENV PATH=$GRADLE_HOME/bin:$PATH
 RUN curl -o gradle-4.2-all.zip -L https://services.gradle.org/distributions/gradle-4.2-all.zip && unzip gradle-4.2-all.zip -d /usr/local > /dev/null
 
 # Nodejs Environment Path
-ENV PATH=$PATH:/opt/node-v6.11.4-linux-x64/bin
-RUN curl -o node-v6.11.4-linux-x64.tar.xz https://nodejs.org/dist/v6.11.4/node-v6.11.4-linux-x64.tar.xz && tar -C /opt -Jxvf node-v6.11.4-linux-x64.tar.xz > /dev/null
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
+RUN apt-get install -y nodejs
+RUN npm config set unsafe-perm true
 
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
 RUN export CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver/
-RUN cnpm i -g macaca-cli
-RUN cnpm i -g macaca-android
-RUN cnpm i -g nosmoke
+RUN npm i -g macaca-cli
+RUN npm i -g macaca-android
+RUN npm i -g nosmoke
 RUN macaca -v
 RUN macaca doctor
 
